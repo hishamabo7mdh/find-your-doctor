@@ -34,12 +34,12 @@ class SignInCard extends StatelessWidget {
             index: selectedTab,
             children: const [
             SignInForm(
-                title: "رقم الجوال",
-                hint:"+9639XX XXX XXX",
+                title: AppStrings.phoneNumberAr,
+                hint:AppStrings.phoneHint,
                 icon: Icons.phone),
             SignInForm(
-                title: "البريد الإلكتروني",
-                hint:"example@gmail.com",
+                title: AppStrings.emailAr,
+                hint:AppStrings.emailHint,
                 icon: Icons.email_outlined),
           ],
           )

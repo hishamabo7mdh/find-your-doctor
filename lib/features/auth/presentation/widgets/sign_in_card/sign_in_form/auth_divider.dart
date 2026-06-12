@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:project1/core/utils/app_strings.dart';
 
 class AuthDivider extends StatelessWidget {
   final String text;
   const AuthDivider({
     super.key,
-    this.text = "أو تسجيل الدخول عبر",
+    this.text = AppStrings.orLoginViaAr,
   });
 
   @override

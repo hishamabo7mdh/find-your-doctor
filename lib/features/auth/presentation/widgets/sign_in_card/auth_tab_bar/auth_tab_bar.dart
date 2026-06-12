@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:project1/core/utils/app_colors.dart';
+import 'package:project1/core/utils/app_strings.dart';
 import 'package:project1/core/utils/app_text_styles.dart';
 import 'package:project1/features/auth/presentation/widgets/sign_in_card/auth_tab_bar/auth_tab_item.dart';
 
@@ -20,7 +21,7 @@ class AuthTabBarIndicator extends StatelessWidget {
             child: GestureDetector(
               onTap: () => onTabChanged(0),
               child: AuthTabItem(
-                title: "رقم الجوال",
+                title: AppStrings.phoneNumberAr,
                 isSelected: selectedTab == 0,
     ),
     ),
@@ -29,7 +30,7 @@ class AuthTabBarIndicator extends StatelessWidget {
             child: GestureDetector(
               onTap: () => onTabChanged(1),
               child: AuthTabItem(
-                title: "البريد الإلكتروني",
+                title: AppStrings.emailAr,
                 isSelected: selectedTab == 1,
     ),
     ),
@@ -46,16 +47,4 @@ class AuthTabBarIndicator extends StatelessWidget {
     );
   }
 
-  BoxDecoration _indicatorDecoration() {
-    return BoxDecoration(
-      color: Colors.white,
-      borderRadius: BorderRadius.circular(12.r),
-      boxShadow: const [
-        BoxShadow(
-          blurRadius: 4,
-          color: AppColors.secondaryColor,
-        ),
-      ],
-    );
-  }
 }

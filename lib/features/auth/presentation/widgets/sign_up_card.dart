@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:project1/core/utils/app_colors.dart';
+import 'package:project1/core/utils/app_strings.dart';
 import 'package:project1/features/auth/presentation/sharFunction.dart';
 import 'package:project1/features/auth/presentation/widgets/sign_up_form.dart';
 
@@ -15,7 +16,7 @@ class SignUpCard extends StatelessWidget {
         child: Column(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
-              titleText('إنشاء حساب'),
+              titleText(AppStrings.createAccountAr),
 
               SizedBox(height: 11.h,),
 

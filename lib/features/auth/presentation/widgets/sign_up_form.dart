@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:project1/core/routing/app_router.dart';
+import 'package:project1/core/utils/app_strings.dart';
 import 'package:project1/core/utils/app_text_styles.dart';
 import 'package:project1/features/auth/presentation/widgets/sign_in_card/sign_in_form/auth_button.dart';
 import 'package:project1/features/auth/presentation/widgets/sign_in_card/sign_in_form/auth_text_field.dart';
@@ -22,44 +23,44 @@ class _SignUpFormState extends State<SignUpForm> {
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
           _firstFieldSection(
-              "الاسم الكامل",
-              "أدخل اسمك الكامل",
+              AppStrings.fullNameAr,
+              AppStrings.fullNameHintAr,
               Icons.person_outline
           ),
 
           SizedBox(height: 11.h,),
           _firstFieldSection(
-              "البريد الإلكتروني",
-              "example@gmail.com",
+              AppStrings.emailAr,
+              AppStrings.emailHint,
               Icons.email_outlined
           ),
           SizedBox(height: 11.h,),
           _firstFieldSection(
-              "رقم الهاتف",
-              "+9639XX XXX XXX",
+              AppStrings.phoneNumberAr,
+              AppStrings.phoneHint,
               Icons.phone,
               textIType: TextInputType.phone
           ),
           SizedBox(height: 11.h,),
           _firstFieldSection(
-            "كلمة المرور",
-            "•••••••••••••",
+            AppStrings.passwordAr,
+            AppStrings.passwordHintAr,
             Icons.lock_clock_outlined,
             suffixIcon: _passwordIcon(),
             condpass: true
           ),
           SizedBox(height: 11.h,),
           _firstFieldSection(
-              "تأكيد كلمة المرور",
-              "•••••••••••••",
+              AppStrings.confirmPasswordAr,
+              AppStrings.confirmPasswordHintAr,
               Icons.lock_clock_outlined,
               suffixIcon: _passwordIcon(),
               condpass: true
           ),
           SizedBox(height: 11.h,),
-          AuthButton(text: 'إنشاء حساب', onPressed: (){}),
+          AuthButton(text: AppStrings.createAccountAr, onPressed: (){}),
           SizedBox(height: 11.h,),
-          AccountSection(title: "تسجيل الدخول",AUSure: "لديك حساب بالفعل؟",onTap: (){context.go(AppRouter.splash);},),
+          AccountSection(title: AppStrings.signInAr,AUSure: AppStrings.haveAccountAr,onTap: (){context.go(AppRouter.splash);},),
         ]
     );
   }

@@ -50,7 +50,7 @@ class _SignInFormState extends State<SignInForm> {
 
           SizedBox(height: 11.h,),
 
-          AccountSection(title: "إنشاء حساب جديد",AUSure: "ليس لديك حساب؟",onTap: (){context.go(AppRouter.signUp);},),
+          AccountSection(title: AppStrings.createAccountAr,AUSure: AppStrings.noAccountAr,onTap: (){context.go(AppRouter.signUp);},),
 
           SizedBox(height: 11.h,),
 
@@ -86,12 +86,12 @@ class _SignInFormState extends State<SignInForm> {
       crossAxisAlignment: CrossAxisAlignment.end,
       children: [
         Text(
-          "كلمة المرور",
+          AppStrings.passwordAr,
               style: CustomTextStyles.poppinsBoldBlack14
         ),
         SizedBox(height: 10.h),
         AuthTextField(
-          hintText: "•••••••••••••",
+          hintText: AppStrings.passwordHintAr,
           obscureText: obscurePassword,
           prefixIcon: const Icon(Icons.lock_clock_outlined),
           suffixIcon: _passwordIcon(),

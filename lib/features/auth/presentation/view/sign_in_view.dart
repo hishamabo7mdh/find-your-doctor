@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:project1/core/utils/app_colors.dart';
+import 'package:project1/core/utils/app_strings.dart';
 import 'package:project1/core/utils/app_text_styles.dart';
 import 'package:project1/core/utils/function/homeIndicator.dart';
 import 'package:project1/features/auth/presentation/widgets/sign_in_card/sign_in_card.dart';
@@ -64,8 +65,8 @@ class _SignInViewState extends State<SignInView> with SingleTickerProviderStateM
                   color: AppColors.offWhite
                 ),
               children:[
-              TextSpan(text: "بتسجيل الدخول، أنت توافق على "),
-                TextSpan(text: "الشروط و الأحكام",style: CustomTextStyles.poppinsRegularTextGreyText14.copyWith(
+              TextSpan(text: AppStrings.agreeTextAr),
+                TextSpan(text: AppStrings.termsAndConditionsAr,style: CustomTextStyles.poppinsRegularTextGreyText14.copyWith(
                   color: Colors.white,
                   decoration: TextDecoration.underline,
                 )),

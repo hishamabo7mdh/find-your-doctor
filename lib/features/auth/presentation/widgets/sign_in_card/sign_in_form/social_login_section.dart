@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:project1/core/utils/app_colors.dart';
+import 'package:project1/core/utils/app_strings.dart';
 import 'package:project1/core/utils/app_text_styles.dart';
 
 class SocialLoginSection extends StatelessWidget {
@@ -11,7 +12,7 @@ class SocialLoginSection extends StatelessWidget {
       children: [
         Expanded(
           child: SocialLoginButton(
-            text: "Google",
+            text: AppStrings.googleStr,
             icon: Icons.g_mobiledata,
           ),
         ),
@@ -20,7 +21,7 @@ class SocialLoginSection extends StatelessWidget {
 
         Expanded(
           child: SocialLoginButton(
-            text: "Apple",
+            text: AppStrings.applestr,
             icon: Icons.apple,
           ),
         ),

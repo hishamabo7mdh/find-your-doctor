@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:project1/core/utils/app_colors.dart';
+import 'package:project1/core/utils/app_strings.dart';
 import 'package:project1/core/utils/app_text_styles.dart';
 
 class RememberMeRow extends StatelessWidget {
@@ -23,7 +24,7 @@ class RememberMeRow extends StatelessWidget {
           ),
         ),
         Text(
-          "تذكر",
+          AppStrings.rememberAr,
               style: CustomTextStyles.poppinsRegularTextGreyText14,
         ),
 
@@ -32,7 +33,7 @@ class RememberMeRow extends StatelessWidget {
         TextButton(
           onPressed: (){},
           child: Text(
-            'نسيت كلمة المرور؟',
+            AppStrings.forgotPasswordAr,
             style: CustomTextStyles.poppinsRegularTextGreyText14.copyWith(
               color: AppColors.secondaryColor,
             )
