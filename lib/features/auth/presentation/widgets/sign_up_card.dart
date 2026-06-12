@@ -16,7 +16,7 @@ class SignUpCard extends StatelessWidget {
         child: Column(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
-              titleText(AppStrings.createAccountAr),
+              titleText(AppStrings.signUpAr),
 
               SizedBox(height: 11.h,),
 

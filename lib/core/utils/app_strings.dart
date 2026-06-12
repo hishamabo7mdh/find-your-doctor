@@ -1,18 +1,9 @@
 abstract class AppStrings {
   static const appName = 'Project1';
 
+  //signIn
   static const signInEn = 'Sign In';
   static const signInAr = "تسجيل الدخول";
-
-  static const signUp = 'Sign Up';
-
-  static const email = 'Email';
-  static const password = 'Password';
-
-  static const forgetPassword = 'Forget Password?';
-
-  static const dontHaveAccount = "Don't have an account?";
-  static const alreadyHaveAccount = "Already have an account?";
 
   static const agreeTextAr = "بتسجيل الدخول، أنت توافق على";
   static const agreeTextEn = "By logging in, you agree to";
@@ -69,4 +60,7 @@ abstract class AppStrings {
 
   static const haveAccountAr = "لديك حساب بالفعل؟";
   static const haveAccountEn = "Already have an account?";
+
+  static const signUpAr = "إنشاء حساب";
+  static const signUpEn = "Sign Up";
 }
