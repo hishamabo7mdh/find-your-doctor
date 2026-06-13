@@ -42,4 +42,11 @@ abstract class CustomTextStyles {
     color: AppColors.black,
     fontFamily: 'Poppins',
   );
+
+  static TextStyle get PacificoBoldsecondaryColor64 => TextStyle(
+    fontSize: 64.sp,
+    fontWeight: FontWeight.w400,
+    color: AppColors.secondaryColor,
+    fontFamily: 'Pacifico',
+  );
 }

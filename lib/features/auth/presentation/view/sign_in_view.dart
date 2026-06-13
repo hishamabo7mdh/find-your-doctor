@@ -32,6 +32,7 @@ class _SignInViewState extends State<SignInView> with SingleTickerProviderStateM
             padding: EdgeInsets.symmetric(horizontal: 24.w),
             child: Column(
               children: [
+                SizedBox(height: 20.h),
                 const SignInLogoSection(),
                 SizedBox(height: 25.h),
 

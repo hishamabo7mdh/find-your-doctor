@@ -7,21 +7,14 @@ class SignInLogoSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        SizedBox(height: 20.h,),
-        
-        Container(
-          padding: EdgeInsets.all(10),
-          decoration: _decoration(),
-          child: Icon(
-            Icons.add_circle_outline,
-            size: 70,
-            color: AppColors.secondaryColor,
-          ),
-        ),
-        
-      ]
+    return Container(
+      padding: EdgeInsets.all(10),
+      decoration: _decoration(),
+      child: Icon(
+        Icons.add_circle_outline,
+        size: 70,
+        color: AppColors.secondaryColor,
+      ),
     );
   }
 

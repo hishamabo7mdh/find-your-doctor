@@ -60,7 +60,7 @@ class _SignUpFormState extends State<SignUpForm> {
           SizedBox(height: 11.h,),
           AuthButton(text: AppStrings.signUpAr, onPressed: (){}),
           SizedBox(height: 11.h,),
-          AccountSection(title: AppStrings.signInAr,AUSure: AppStrings.haveAccountAr,onTap: (){context.go(AppRouter.splash);},),
+          AccountSection(title: AppStrings.signInAr,AUSure: AppStrings.haveAccountAr,onTap: (){context.go(AppRouter.signIn);},),
         ]
     );
   }
