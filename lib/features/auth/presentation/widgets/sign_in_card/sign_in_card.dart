@@ -36,7 +36,11 @@ class SignInCard extends StatelessWidget {
             SignInForm(
                 title: AppStrings.phoneNumberAr,
                 hint:AppStrings.phoneHint,
-                icon: Icons.phone),
+                icon: Icons.phone,
+              isPhone: true,
+
+
+            ),
             SignInForm(
                 title: AppStrings.emailAr,
                 hint:AppStrings.emailHint,

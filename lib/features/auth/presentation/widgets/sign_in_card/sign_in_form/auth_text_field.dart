@@ -26,7 +26,7 @@ class AuthTextField extends StatelessWidget {
     return TextFormField(
       controller: controller,
       obscureText: obscureText,
-      keyboardType: keyboardType,
+      keyboardType: keyboardType ?? TextInputType.emailAddress,
       style: CustomTextStyles.poppinsRegularTextColor14,
       decoration: InputDecoration(
         hintText: hintText,

@@ -1,9 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:project1/core/utils/router.dart';
+import 'package:project1/features/auth/presentation/view_model/auth_view_model.dart';
+import 'package:provider/provider.dart';
 
 void main() {
-  runApp(const Project1App());
+
+  runApp(
+    MultiProvider(
+      providers: [
+
+        ChangeNotifierProvider(
+          create: (_) => AuthViewModel(),
+        ),
+
+      ],
+      child: const Project1App(),
+    ),
+  );
+  //runApp(const Project1App());
 }
 
 class Project1App extends StatelessWidget {
