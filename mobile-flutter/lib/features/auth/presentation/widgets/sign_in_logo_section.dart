@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:project1/core/utils/app_colors.dart';
 
 class SignInLogoSection extends StatelessWidget {

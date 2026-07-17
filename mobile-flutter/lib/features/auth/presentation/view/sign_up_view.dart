@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:go_router/go_router.dart';
 import 'package:project1/core/utils/app_colors.dart';
 import 'package:project1/core/utils/function/homeIndicator.dart';
 import 'package:project1/features/auth/presentation/widgets/sign_in_logo_section.dart';
