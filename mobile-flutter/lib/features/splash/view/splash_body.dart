@@ -16,7 +16,29 @@ class SplashBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocListener<SplashCubit, SplashState>(
       listener: (context, state) {
-        if (state is SplashNavigateToSignIn) {
+    if (state is SplashAuthenticated) {
+
+      switch (state.user.role) {
+
+        case "patient":
+          context.go(AppRouter.patientHome);
+          break;
+
+        case "doctor":
+          context.go(AppRouter.doctorHome);
+          break;
+
+        case "admin":
+          context.go(AppRouter.adminHome);
+          break;
+
+      }
+
+    }
+
+
+
+        if (state is SplashUnauthenticated) {
           context.go(AppRouter.signIn);
         }
       },

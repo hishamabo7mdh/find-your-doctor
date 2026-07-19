@@ -26,7 +26,6 @@ class AuthViewModel extends ChangeNotifier {
     try {
       _isLoading = true;
       notifyListeners();
-
       final response = await _repository.login(
         LoginRequest(
           email: email,
@@ -35,7 +34,6 @@ class AuthViewModel extends ChangeNotifier {
       );
 
       currentUser = response.user;
-
       return true;
     } catch (e) {
       debugPrint(e.toString());

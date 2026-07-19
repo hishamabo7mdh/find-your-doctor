@@ -5,7 +5,6 @@ import 'package:project1/features/auth/presentation/view_model/auth_view_model.d
 import 'package:provider/provider.dart';
 
 void main() {
-
   runApp(
     MultiProvider(
       providers: [

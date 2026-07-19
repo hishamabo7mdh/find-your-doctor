@@ -60,9 +60,7 @@ class _SignInFormState extends State<SignInForm> {
 Consumer<AuthViewModel>(
 builder: (context, vm, child) {
   if (vm.isLoading) {
-    return const Center(
-      child: CircularProgressIndicator(),
-    );
+    return Center(child: CircularProgressIndicator());
   }
   return AuthButton(text: AppStrings.signInAr, onPressed: () async {
     final success = await vm.login(
@@ -71,16 +69,12 @@ builder: (context, vm, child) {
     );
     if (success) {
       final role = vm.currentUser?.role;
-
       if (role == "patient") {
-        debugPrint("patient");
-        //context.go(AppRouter.patientHome);
+        context.go(AppRouter.patientHome);
       } else if (role == "doctor") {
-        debugPrint("doctor");
-        //context.go(AppRouter.doctorHome);
+        context.go(AppRouter.doctorHome);
       } else if (role == "admin") {
-        debugPrint("admin");
-        //context.go(AppRouter.adminHome);
+        context.go(AppRouter.adminHome);
       }
     } else {
       ScaffoldMessenger.of(context).showSnackBar(

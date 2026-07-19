@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:project1/features/auth/data/models/login_request.dart';
 import 'package:project1/features/auth/data/models/login_response.dart';
+import 'package:project1/features/auth/data/models/user_model.dart';
 
 import '../../../../core/constants/api_constants.dart';
 import '../../../../core/network/api_client.dart';
@@ -20,4 +21,12 @@ class AuthService {
 
     return LoginResponse.fromJson(response.data);
   }
+
+  Future<UserModel> me() async {
+  final response = await apiClient.dio.get(
+    ApiConstants.me,
+  );
+
+  return UserModel.fromJson(response.data["data"]);
+}
 }

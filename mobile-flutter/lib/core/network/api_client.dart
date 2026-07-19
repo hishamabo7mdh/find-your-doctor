@@ -18,11 +18,12 @@ class ApiClient {
         },
       ),
     );
-
+    //monitor
     dio.interceptors.add(
       InterceptorsWrapper(
         onRequest: (options, handler) async {
           final token = await SecureStorage.getToken();
+          
 
           if (token != null) {
             options.headers["Authorization"] = "Bearer $token";
