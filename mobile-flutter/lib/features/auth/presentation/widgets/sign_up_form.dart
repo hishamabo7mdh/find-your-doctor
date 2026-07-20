@@ -4,9 +4,11 @@ import 'package:go_router/go_router.dart';
 import 'package:project1/core/routing/app_router.dart';
 import 'package:project1/core/utils/app_strings.dart';
 import 'package:project1/core/utils/app_text_styles.dart';
+import 'package:project1/features/auth/presentation/view_model/auth_view_model.dart';
 import 'package:project1/features/auth/presentation/widgets/sign_in_card/sign_in_form/auth_button.dart';
 import 'package:project1/features/auth/presentation/widgets/sign_in_card/sign_in_form/auth_text_field.dart';
 import 'package:project1/features/auth/presentation/widgets/sign_in_card/sign_in_form/create_account_section.dart';
+import 'package:provider/provider.dart';
 class SignUpForm extends StatefulWidget {
   const SignUpForm({super.key});
 
@@ -17,6 +19,22 @@ class SignUpForm extends StatefulWidget {
 class _SignUpFormState extends State<SignUpForm> {
   bool obscurePassword = true;
 
+final firstNameController = TextEditingController();
+final lastNameController = TextEditingController();
+final emailController = TextEditingController();
+final phoneController = TextEditingController();
+final passwordController = TextEditingController();
+final confirmPasswordController = TextEditingController();
+  @override
+void dispose() {
+  firstNameController.dispose();
+  lastNameController.dispose();
+  emailController.dispose();
+  phoneController.dispose();
+  passwordController.dispose();
+  confirmPasswordController.dispose();
+  super.dispose();
+}
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -25,27 +43,32 @@ class _SignUpFormState extends State<SignUpForm> {
           _firstFieldSection(
               AppStrings.fullNameAr,
               AppStrings.fullNameHintAr,
-              Icons.person_outline
+              Icons.person_outline,
+              controller: firstNameController,
           ),
 
           SizedBox(height: 11.h,),
           _firstFieldSection(
               AppStrings.emailAr,
               AppStrings.emailHint,
-              Icons.email_outlined
+              Icons.email_outlined,
+              controller: emailController,
           ),
           SizedBox(height: 11.h,),
           _firstFieldSection(
               AppStrings.phoneNumberAr,
               AppStrings.phoneHint,
               Icons.phone,
-              textIType: TextInputType.phone
+              controller: phoneController,
+              textIType: TextInputType.phone,
+              
           ),
           SizedBox(height: 11.h,),
           _firstFieldSection(
             AppStrings.passwordAr,
             AppStrings.passwordHintAr,
             Icons.lock_clock_outlined,
+            controller: passwordController,
             suffixIcon: _passwordIcon(),
             condpass: true
           ),
@@ -54,11 +77,37 @@ class _SignUpFormState extends State<SignUpForm> {
               AppStrings.confirmPasswordAr,
               AppStrings.confirmPasswordHintAr,
               Icons.lock_clock_outlined,
+              controller: confirmPasswordController,
               suffixIcon: _passwordIcon(),
               condpass: true
           ),
           SizedBox(height: 11.h,),
-          AuthButton(text: AppStrings.signUpAr, onPressed: (){}),
+          AuthButton(text: AppStrings.signUpAr,  onPressed: () async {
+    final vm = context.read<AuthViewModel>();
+
+    final name = firstNameController.text.trim().split(" ");
+
+    final success = await vm.register(
+      firstName: name.first,
+      lastName: name.length > 1 ? name.sublist(1).join(" ") : "",
+      email: emailController.text.trim(),
+      phone: phoneController.text.trim(),
+      password: passwordController.text,
+      passwordConfirmation: confirmPasswordController.text,
+    );
+if (success) {
+  context.go(AppRouter.patientHome);
+} else {
+  ScaffoldMessenger.of(context).showSnackBar(
+    SnackBar(
+      content: Text(
+        vm.error ?? "فشل إنشاء الحساب",
+      ),
+    ),
+  );
+}
+  },
+  ),
           SizedBox(height: 11.h,),
           AccountSection(title: AppStrings.signInAr,AUSure: AppStrings.haveAccountAr,onTap: (){context.go(AppRouter.signIn);},),
         ]
@@ -66,7 +115,7 @@ class _SignUpFormState extends State<SignUpForm> {
   }
 
   Widget _firstFieldSection(String title, String hint, IconData icon,
-      {TextInputType textIType = TextInputType.emailAddress,Widget? suffixIcon,bool condpass=false}
+      {required TextEditingController controller,TextInputType textIType = TextInputType.emailAddress,Widget? suffixIcon,bool condpass=false}
 
       ) {
     return Column(
@@ -78,6 +127,7 @@ class _SignUpFormState extends State<SignUpForm> {
         ),
         SizedBox(height: 10.h),
         AuthTextField(
+          controller: controller,
           hintText: hint,
           keyboardType: textIType,
           obscureText: condpass?obscurePassword:condpass ,

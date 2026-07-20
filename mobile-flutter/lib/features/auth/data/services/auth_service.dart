@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:project1/features/auth/data/models/RegisterRequest.dart';
 import 'package:project1/features/auth/data/models/login_request.dart';
 import 'package:project1/features/auth/data/models/login_response.dart';
 import 'package:project1/features/auth/data/models/user_model.dart';
@@ -28,5 +29,19 @@ class AuthService {
 
   Future<void> logout() async {
     await apiClient.dio.post(ApiConstants.logout);
+  }
+
+  Future<LoginResponse> register(RegisterRequest request) async {
+    try {
+      final response = await apiClient.dio.post(
+        ApiConstants.register,
+        data: request.toJson(),
+      );
+      return LoginResponse.fromJson(response.data);
+    } on DioException catch (e) {
+      final message = e.response?.data?['message'] ?? "فشل إنشاء الحساب";
+
+      throw Exception(message);
+    }
   }
 }

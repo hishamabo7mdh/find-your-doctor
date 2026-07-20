@@ -1,4 +1,6 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:project1/features/auth/data/models/RegisterRequest.dart';
 import 'package:project1/features/auth/data/models/login_request.dart';
 
 import '../../../../core/network/api_client.dart';
@@ -14,6 +16,10 @@ class AuthViewModel extends ChangeNotifier {
   bool get isLoading => _isLoading;
 
   UserModel? currentUser;
+
+  String? errorMessage;
+
+  String? get error => errorMessage;
 
   Future<bool> login({required String email, required String password}) async {
     try {
@@ -46,5 +52,45 @@ class AuthViewModel extends ChangeNotifier {
       _isLoading = false;
       notifyListeners();
     }
+  }
+
+  Future<bool> register({
+    required String firstName,
+    required String lastName,
+    required String email,
+    required String phone,
+    required String password,
+    required String passwordConfirmation,
+  }) async {
+    try {
+      _isLoading = true;
+      notifyListeners();
+
+      final response = await _repository.register(
+        RegisterRequest(
+          firstName: firstName,
+          lastName: lastName,
+          email: email,
+          phone: phone,
+          password: password,
+          passwordConfirmation: passwordConfirmation,
+        ),
+      );
+
+      currentUser = response.user;
+
+      return true;
+    } catch (e) {
+
+    errorMessage = e.toString();
+
+    debugPrint(errorMessage);
+
+    return false;
+
+  } finally {
+    _isLoading = false;
+    notifyListeners();
+  }
   }
 }

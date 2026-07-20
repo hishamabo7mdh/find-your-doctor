@@ -1,3 +1,4 @@
+import 'package:project1/features/auth/data/models/RegisterRequest.dart';
 import 'package:project1/features/auth/data/models/login_request.dart';
 import 'package:project1/features/auth/data/models/login_response.dart';
 import 'package:project1/features/auth/data/models/user_model.dart';
@@ -12,23 +13,32 @@ class AuthRepository {
 
   Future<LoginResponse> login(LoginRequest request) async {
     final response = await service.login(request);
-print("Token from API: ${response.token}");
+    print("Token from API: ${response.token}");
 
     await SecureStorage.saveToken(response.token);
-      final token = await SecureStorage.getToken();
+    final token = await SecureStorage.getToken();
     print("Token after save: $token");
     return response;
   }
+
   Future<UserModel> me() async {
-  return await service.me();
-}
-Future<void> logout() async {
-  try {
-    await service.logout();
-  } catch (_) {
-    print("token is invalid");
+    return await service.me();
+  }
+
+  Future<void> logout() async {
+    try {
+      await service.logout();
+    } catch (_) {
+      print("token is invalid");
     }
 
-  await SecureStorage.clear();
-}
+    await SecureStorage.clear();
+  }
+
+  Future<LoginResponse> register(RegisterRequest request) async {
+    final response = await service.register(request);
+    await SecureStorage.saveToken(response.token);
+
+    return response;
+  }
 }
