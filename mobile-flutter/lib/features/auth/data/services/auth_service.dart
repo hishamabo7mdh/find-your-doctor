@@ -6,8 +6,6 @@ import 'package:project1/features/auth/data/models/user_model.dart';
 import '../../../../core/constants/api_constants.dart';
 import '../../../../core/network/api_client.dart';
 
-
-
 class AuthService {
   final ApiClient apiClient;
 
@@ -23,10 +21,12 @@ class AuthService {
   }
 
   Future<UserModel> me() async {
-  final response = await apiClient.dio.get(
-    ApiConstants.me,
-  );
+    final response = await apiClient.dio.get(ApiConstants.me);
 
-  return UserModel.fromJson(response.data["data"]);
-}
+    return UserModel.fromJson(response.data["data"]);
+  }
+
+  Future<void> logout() async {
+    await apiClient.dio.post(ApiConstants.logout);
+  }
 }

@@ -22,4 +22,13 @@ print("Token from API: ${response.token}");
   Future<UserModel> me() async {
   return await service.me();
 }
+Future<void> logout() async {
+  try {
+    await service.logout();
+  } catch (_) {
+    print("token is invalid");
+    }
+
+  await SecureStorage.clear();
+}
 }

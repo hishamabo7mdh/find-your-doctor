@@ -7,11 +7,7 @@ import '../../data/repository/auth_repository.dart';
 import '../../data/services/auth_service.dart';
 
 class AuthViewModel extends ChangeNotifier {
-  final AuthRepository _repository = AuthRepository(
-    AuthService(
-      ApiClient(),
-    ),
-  );
+  final AuthRepository _repository = AuthRepository(AuthService(ApiClient()));
 
   bool _isLoading = false;
 
@@ -19,18 +15,12 @@ class AuthViewModel extends ChangeNotifier {
 
   UserModel? currentUser;
 
-  Future<bool> login({
-    required String email,
-    required String password,
-  }) async {
+  Future<bool> login({required String email, required String password}) async {
     try {
       _isLoading = true;
       notifyListeners();
       final response = await _repository.login(
-        LoginRequest(
-          email: email,
-          password: password,
-        ),
+        LoginRequest(email: email, password: password),
       );
 
       currentUser = response.user;
@@ -38,6 +28,20 @@ class AuthViewModel extends ChangeNotifier {
     } catch (e) {
       debugPrint(e.toString());
       return false;
+    } finally {
+      _isLoading = false;
+      notifyListeners();
+    }
+  }
+
+  Future<void> logout() async {
+    try {
+      _isLoading = true;
+      notifyListeners();
+
+      await _repository.logout();
+
+      currentUser = null;
     } finally {
       _isLoading = false;
       notifyListeners();
