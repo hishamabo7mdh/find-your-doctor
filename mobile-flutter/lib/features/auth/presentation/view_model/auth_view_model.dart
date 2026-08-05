@@ -76,16 +76,18 @@ class AuthViewModel extends ChangeNotifier {
           passwordConfirmation: passwordConfirmation,
         ),
       );
+      
 
       currentUser = response.user;
 
       return true;
-    } catch (e) {
+    } catch (e,stackTrace) {
 
     errorMessage = e.toString();
 
-    debugPrint(errorMessage);
-
+    debugPrint("AuthViewModel:$errorMessage");
+    print(e);
+    print(stackTrace);
     return false;
 
   } finally {

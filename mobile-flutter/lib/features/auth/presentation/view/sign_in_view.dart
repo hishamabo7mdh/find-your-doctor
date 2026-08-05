@@ -41,7 +41,7 @@ class _SignInViewState extends State<SignInView> with SingleTickerProviderStateM
                   onTabChanged: changeTab,
                 ),
                 SizedBox(height: 25.h,),
-                 _authTermsAgreementText(),
+                _authTermsAgreementText(),
 
                 SizedBox(height: 25.h,),
                 homeIndicator(),

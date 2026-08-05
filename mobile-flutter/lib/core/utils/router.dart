@@ -5,7 +5,7 @@ import 'package:project1/features/auth/presentation/view/sign_in_view.dart';
 import 'package:project1/features/auth/presentation/view/sign_up_view.dart';
 import 'package:project1/features/home/adminHome.dart';
 import 'package:project1/features/home/doctorHome.dart';
-import 'package:project1/features/home/patientHome.dart';
+import 'package:project1/features/home/patientHome/presentation/view/patientHome.dart';
 import 'package:project1/features/splash/view/splash_view.dart';
 
 final GoRouter routerList =

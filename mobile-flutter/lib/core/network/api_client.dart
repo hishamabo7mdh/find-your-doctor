@@ -23,12 +23,13 @@ class ApiClient {
       InterceptorsWrapper(
         onRequest: (options, handler) async {
           final token = await SecureStorage.getToken();
-          
 
           if (token != null) {
             options.headers["Authorization"] = "Bearer $token";
           }
-
+          print("Base URL: ${options.baseUrl}");
+          print("Path: ${options.path}");
+          print("Final URL: ${options.uri}");
           handler.next(options);
         },
       ),

@@ -37,11 +37,16 @@ class AuthService {
         ApiConstants.register,
         data: request.toJson(),
       );
-      return LoginResponse.fromJson(response.data);
-    } on DioException catch (e) {
-      final message = e.response?.data?['message'] ?? "فشل إنشاء الحساب";
 
-      throw Exception(message);
+      return LoginResponse.fromJson(response.data);
+    } on DioException catch (e,s) {
+
+      final message = e.response?.data?['message'] ?? "فشل إنشاء الحساب";
+  print("Status Code: ${e.response?.statusCode}");
+  print("Response: ${e.response?.data}");
+
+  throw Exception(e.response?.data.toString() ?? e.message);
+      // throw Exception(message);
     }
   }
 }

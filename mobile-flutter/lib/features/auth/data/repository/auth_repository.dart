@@ -16,8 +16,6 @@ class AuthRepository {
     print("Token from API: ${response.token}");
 
     await SecureStorage.saveToken(response.token);
-    final token = await SecureStorage.getToken();
-    print("Token after save: $token");
     return response;
   }
 

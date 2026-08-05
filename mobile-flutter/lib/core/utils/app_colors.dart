@@ -12,6 +12,7 @@ abstract class AppColors{
   static const titleText = Color(0xFF0A0A0A);
   static const borderColor = Color(0xFFE0E0E0);
   static const scaffoldBackgroundColor = Color(0xFF2BB8AA);
+  static const backgroundColor = Color(0xFFCBFBF1);
 
   
 }
