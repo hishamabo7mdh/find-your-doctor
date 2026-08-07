@@ -5,14 +5,14 @@ import 'package:project1/core/utils/function/homeIndicator.dart';
 import 'package:project1/features/auth/presentation/widgets/sign_in_logo_section.dart';
 import 'package:project1/features/auth/presentation/widgets/sign_up_card.dart';
 
-class SignUpView extends StatefulWidget {
-  const SignUpView({super.key});
+class SignUpBody extends StatefulWidget {
+  const SignUpBody({super.key});
 
   @override
-  State<SignUpView> createState() => _SignUpViewState();
+  State<SignUpBody> createState() => _SignUpBodyState();
 }
 
-class _SignUpViewState extends State<SignUpView> {
+class _SignUpBodyState extends State<SignUpBody> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

@@ -26,7 +26,7 @@ class AuthViewModel extends ChangeNotifier {
       _isLoading = true;
       notifyListeners();
       final response = await _repository.login(
-        LoginRequest(email: email, password: password),
+        LoginRequest(login: email, password: password),
       );
 
       currentUser = response.user;

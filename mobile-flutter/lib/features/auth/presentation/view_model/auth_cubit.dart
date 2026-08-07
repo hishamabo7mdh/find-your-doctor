@@ -1,4 +1,7 @@
+import 'package:dio/dio.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:project1/core/errors/dio_failure.dart';
 import 'package:project1/core/network/api_client.dart';
 import 'package:project1/features/auth/data/models/RegisterRequest.dart';
 import 'package:project1/features/auth/data/models/login_request.dart';
@@ -8,32 +11,34 @@ import 'package:project1/features/auth/presentation/view_model/auth_state.dart';
 
 class AuthCubit extends Cubit<AuthState> {
   AuthCubit()
-      : _repository = AuthRepository(
-          AuthService(ApiClient()),
-        ),
-        super(const AuthInitial());
+    : _repository = AuthRepository(AuthService(ApiClient())),
+      super(const AuthInitial());
 
   final AuthRepository _repository;
 
-  Future<void> login({
-    required String email,
-    required String password,
-  }) async {
-    emit(const AuthLoading());
+Future<void> login({
+  required String login,
+  required String password,
+}) async {
+  emit(const AuthLoading());
 
-    try {
-      final response = await _repository.login(
-        LoginRequest(
-          email: email,
-          password: password,
-        ),
-      );
+  debugPrint("test: $login");
 
-      emit(AuthAuthenticated(response.user));
-    } catch (e) {
-      emit(AuthError(e.toString()));
-    }
+  try {
+    final response = await _repository.login(
+      LoginRequest(
+        login: login,
+        password: password,
+      ),
+    );
+
+    emit(AuthAuthenticated(response.user));
+  } on DioException catch (e) {
+    emit(AuthError(DioFailure.fromDioException(e).message));
+  } catch (_) {
+    emit(const AuthError("حدث خطأ غير متوقع"));
   }
+}
 
   Future<void> register({
     required String firstName,
@@ -58,8 +63,10 @@ class AuthCubit extends Cubit<AuthState> {
       );
 
       emit(AuthAuthenticated(response.user));
-    } catch (e) {
-      emit(AuthError(e.toString()));
+    } on DioException catch (e) {
+      emit(AuthError(DioFailure.fromDioException(e).message));
+    } catch (_) {
+      emit(const AuthError("حدث خطأ غير متوقع"));
     }
   }
 

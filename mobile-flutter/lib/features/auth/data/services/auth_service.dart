@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
 import 'package:project1/features/auth/data/models/RegisterRequest.dart';
 import 'package:project1/features/auth/data/models/login_request.dart';
 import 'package:project1/features/auth/data/models/login_response.dart';
@@ -13,11 +14,12 @@ class AuthService {
   AuthService(this.apiClient);
 
   Future<LoginResponse> login(LoginRequest request) async {
+    debugPrint(request.toJson().toString());
     final Response response = await apiClient.dio.post(
       ApiConstants.login,
       data: request.toJson(),
     );
-
+    
     return LoginResponse.fromJson(response.data);
   }
 

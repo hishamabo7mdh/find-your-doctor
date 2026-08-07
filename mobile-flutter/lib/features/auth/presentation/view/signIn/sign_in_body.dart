@@ -7,14 +7,14 @@ import 'package:project1/core/utils/function/homeIndicator.dart';
 import 'package:project1/features/auth/presentation/widgets/sign_in_card/sign_in_card.dart';
 import 'package:project1/features/auth/presentation/widgets/sign_in_logo_section.dart';
 
-class SignInView extends StatefulWidget {
-  const SignInView({super.key}) ;
+class SignInBody extends StatefulWidget {
+  const SignInBody({super.key}) ;
 
   @override
-  State<SignInView> createState() => _SignInViewState();
+  State<SignInBody> createState() => _SignInBodyState();
 }
 
-class _SignInViewState extends State<SignInView> with SingleTickerProviderStateMixin {
+class _SignInBodyState extends State<SignInBody> with SingleTickerProviderStateMixin {
   //late final TabController _tabController;
   int selectedTab = 0;
   void changeTab(int index) {
