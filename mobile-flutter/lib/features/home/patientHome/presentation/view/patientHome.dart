@@ -12,6 +12,7 @@ class PatientHome extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(create: (_) => HomeCubit(), child: const HomeBody());
+    return BlocProvider(create: (_) => HomeCubit(),
+    child: const HomeBody());
   }
 }

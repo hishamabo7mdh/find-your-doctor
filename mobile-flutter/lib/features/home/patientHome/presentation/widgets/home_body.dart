@@ -3,6 +3,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:project1/core/utils/app_colors.dart';
 import 'package:project1/core/utils/function/homeIndicator.dart';
+import 'package:project1/core/utils/function/user_session.dart';
+import 'package:project1/features/auth/data/models/user_model.dart';
+import 'package:project1/features/auth/presentation/view_model/auth_cubit.dart';
+import 'package:project1/features/auth/presentation/view_model/auth_state.dart';
 import 'package:project1/features/auth/presentation/view_model/auth_view_model.dart';
 import 'package:project1/features/home/patientHome/presentation/widgets/home_action_card.dart';
 import 'package:project1/features/home/patientHome/presentation/widgets/home_button_bar.dart';
@@ -19,7 +23,6 @@ class HomeBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final user = context.watch<AuthViewModel>().currentUser;
     return Scaffold(
       backgroundColor: AppColors.backgroundColor,
       body: SafeArea(
@@ -28,7 +31,7 @@ class HomeBody extends StatelessWidget {
             padding: EdgeInsets.symmetric(horizontal: 24.w),
             child: Column(
               children: [
-                HomeHeader(userName: user?.fullName ?? 'أحمد',),
+                HomeHeader(userName: UserSession.currentUser?.fullName ?? '',),
 
                 SizedBox(height: 32.h),
                 HomeActionCard(

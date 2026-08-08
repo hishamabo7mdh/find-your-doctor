@@ -44,12 +44,19 @@ class _SignUpFormState extends State<SignUpForm> {
       crossAxisAlignment: CrossAxisAlignment.end,
       children: [
         _firstFieldSection(
-          AppStrings.fullNameAr,
-          AppStrings.fullNameHintAr,
+          AppStrings.firstNameAr,
+          AppStrings.firstNameHintAr,
           Icons.person_outline,
           controller: firstNameController,
         ),
+        SizedBox(height: 11.h),
 
+        _firstFieldSection(
+          AppStrings.lastNameAr,
+          AppStrings.lastNameHintAr,
+          Icons.person_outline,
+          controller: lastNameController,
+        ),
         SizedBox(height: 11.h),
         _firstFieldSection(
           AppStrings.emailAr,
@@ -104,11 +111,10 @@ class _SignUpFormState extends State<SignUpForm> {
             return AuthButton(
               text: AppStrings.signUpAr,
               onPressed: () {
-                final name = firstNameController.text.trim().split(" ");
 
                 context.read<AuthCubit>().register(
-                  firstName: name.first,
-                  lastName: name.length > 1 ? name.sublist(1).join(" ") : "",
+                  firstName: firstNameController.text.trim(),
+                  lastName: lastNameController.text.trim(),
                   email: emailController.text.trim(),
                   phone: phoneController.text.trim(),
                   password: passwordController.text,

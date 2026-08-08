@@ -3,6 +3,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:project1/core/errors/dio_failure.dart';
 import 'package:project1/core/network/api_client.dart';
+import 'package:project1/core/utils/function/user_session.dart';
 import 'package:project1/features/auth/data/models/RegisterRequest.dart';
 import 'package:project1/features/auth/data/models/login_request.dart';
 import 'package:project1/features/auth/data/repository/auth_repository.dart';
@@ -22,8 +23,6 @@ Future<void> login({
 }) async {
   emit(const AuthLoading());
 
-  debugPrint("test: $login");
-
   try {
     final response = await _repository.login(
       LoginRequest(
@@ -32,6 +31,7 @@ Future<void> login({
       ),
     );
 
+    UserSession.setUser(response.user);
     emit(AuthAuthenticated(response.user));
   } on DioException catch (e) {
     emit(AuthError(DioFailure.fromDioException(e).message));
@@ -61,7 +61,7 @@ Future<void> login({
           passwordConfirmation: passwordConfirmation,
         ),
       );
-
+      UserSession.setUser(response.user);
       emit(AuthAuthenticated(response.user));
     } on DioException catch (e) {
       emit(AuthError(DioFailure.fromDioException(e).message));
@@ -75,7 +75,7 @@ Future<void> login({
 
     try {
       await _repository.logout();
-
+      UserSession.clear();
       emit(const AuthUnauthenticated());
     } catch (e) {
       emit(AuthError(e.toString()));

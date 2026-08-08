@@ -4,6 +4,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:project1/core/network/api_client.dart';
 import 'package:project1/core/storage/secure_storage.dart';
+import 'package:project1/core/utils/function/user_session.dart';
 import 'package:project1/features/auth/data/repository/auth_repository.dart';
 import 'package:project1/features/auth/data/services/auth_service.dart';
 
@@ -37,6 +38,7 @@ class SplashCubit extends Cubit<SplashState> {
   try {
 
     final user = await _repository.me();
+    UserSession.setUser(user);
     emit(SplashAuthenticated(user));
 
   } catch (e, stackTrace) {

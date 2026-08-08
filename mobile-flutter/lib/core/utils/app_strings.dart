@@ -46,6 +46,18 @@ abstract class AppStrings {
   static const orLoginViaEn = "Or sign in via";
 
   //signup
+  static const lastNameAr = "الاسم الأخير";
+  static const lastNameEn = "last Name";
+
+  static const lastNameHintAr = "أدخل الاسم الاخير";
+  static const lastNameHintEn = "Enter last name";
+    
+  static const firstNameAr = "الاسم الاول";
+  static const firstNameEn = "first Name";
+
+  static const firstNameHintAr = "أدخل الاسم الاول";
+  static const firstNameHintEn = "Enter first name";
+
   static const fullNameAr = "الاسم الكامل";
   static const fullNameEn = "Full Name";
 
