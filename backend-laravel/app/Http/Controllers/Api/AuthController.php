@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\CreateDoctorRequest;
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RegisterRequest;
 use App\Http\Resources\UserResource;
+use App\Models\Doctor;
 use App\Models\Patient;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -20,14 +22,7 @@ class AuthController extends Controller
 
         try {
 
-            $user = User::create([
-                'first_name' => $request->first_name,
-                'last_name'  => $request->last_name,
-                'email'      => $request->email,
-                'phone'      => $request->phone,
-                'password'   => bcrypt($request->password),
-                'role'       => 'patient',
-            ]);
+            $user = $this->createUser($request, 'patient');
 
             Patient::create([
                 'user_id' => $user->id,
@@ -47,6 +42,50 @@ class AuthController extends Controller
 
             throw $e;
         }
+    }
+
+    public function createDoctor(CreateDoctorRequest $request)
+    {
+        DB::beginTransaction();
+
+        try {
+
+            $user = $this->createUser($request, 'doctor');
+
+            Doctor::create([
+                'user_id' => $user->id,
+                'day_of_week' => $request->day_of_week,
+                'start_time' => $request->start_time,
+                'end_time' => $request->end_time,
+                'is_active' => $request->is_active ?? true,
+            ]);
+
+            $token = $user->createToken('mobile')->plainTextToken;
+
+            DB::commit();
+
+            return response()->json([
+                'user' => new UserResource($user),
+                'token' => $token,
+            ], 201);
+        } catch (\Throwable $e) {
+
+            DB::rollBack();
+
+            throw $e;
+        }
+    }
+
+    private function createUser(RegisterRequest|CreateDoctorRequest $request, string $role): User
+    {
+        return User::create([
+            'first_name' => $request->first_name,
+            'last_name'  => $request->last_name,
+            'email'      => $request->email,
+            'phone'      => $request->phone,
+            'password'   => bcrypt($request->password),
+            'role'       => $role,
+        ]);
     }
     public function login(LoginRequest $request)
     {

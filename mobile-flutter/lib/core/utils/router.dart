@@ -5,7 +5,7 @@ import 'package:project1/features/auth/presentation/view/signIn/Sign_in_view.dar
 import 'package:project1/features/auth/presentation/view/signIn/sign_in_body.dart';
 import 'package:project1/features/auth/presentation/view/signup/sign_up_body.dart';
 import 'package:project1/features/auth/presentation/view/signup/sign_up_view.dart';
-import 'package:project1/features/home/adminHome.dart';
+import 'package:project1/features/home/admin_home/presentation/views/adminHome.dart';
 import 'package:project1/features/home/doctorHome.dart';
 import 'package:project1/features/home/patientHome/presentation/view/patientHome.dart';
 import 'package:project1/features/splash/view/splash_view.dart';

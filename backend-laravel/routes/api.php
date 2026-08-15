@@ -24,5 +24,8 @@ Route::prefix('auth')->group(function () {
             return new UserResource($request->user());
         });
 
+        Route::post('/admin/doctors', [AuthController::class, 'createDoctor'])
+        ->middleware('role:admin');
+
     });
 });
