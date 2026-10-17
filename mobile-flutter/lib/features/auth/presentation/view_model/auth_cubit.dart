@@ -1,10 +1,10 @@
 import 'package:dio/dio.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:project1/core/errors/dio_failure.dart';
 import 'package:project1/core/network/api_client.dart';
 import 'package:project1/core/utils/function/user_session.dart';
 import 'package:project1/features/auth/data/models/RegisterRequest.dart';
+import 'package:project1/features/auth/data/models/create_doctor_request.dart';
 import 'package:project1/features/auth/data/models/login_request.dart';
 import 'package:project1/features/auth/data/repository/auth_repository.dart';
 import 'package:project1/features/auth/data/services/auth_service.dart';
@@ -17,28 +17,22 @@ class AuthCubit extends Cubit<AuthState> {
 
   final AuthRepository _repository;
 
-Future<void> login({
-  required String login,
-  required String password,
-}) async {
-  emit(const AuthLoading());
+  Future<void> login({required String login, required String password}) async {
+    emit(const AuthLoading());
 
-  try {
-    final response = await _repository.login(
-      LoginRequest(
-        login: login,
-        password: password,
-      ),
-    );
+    try {
+      final response = await _repository.login(
+        LoginRequest(login: login, password: password),
+      );
 
-    UserSession.setUser(response.user);
-    emit(AuthAuthenticated(response.user));
-  } on DioException catch (e) {
-    emit(AuthError(DioFailure.fromDioException(e).message));
-  } catch (_) {
-    emit(const AuthError("حدث خطأ غير متوقع"));
+      UserSession.setUser(response.user);
+      emit(AuthAuthenticated(response.user));
+    } on DioException catch (e) {
+      emit(AuthError(DioFailure.fromDioException(e).message));
+    } catch (_) {
+      emit(const AuthError("حدث خطأ غير متوقع"));
+    }
   }
-}
 
   Future<void> register({
     required String firstName,
@@ -79,6 +73,46 @@ Future<void> login({
       emit(const AuthUnauthenticated());
     } catch (e) {
       emit(AuthError(e.toString()));
+    }
+  }
+
+  Future<void> createDoctor({
+    required String firstName,
+    required String lastName,
+    required String email,
+    required String phone,
+    required String password,
+    required String passwordConfirmation,
+    required List<String> daysOfWeek,
+    required String startTime,
+    required String endTime,
+    required bool isActive,
+    int? specialtyId,
+  }) async {
+    emit(const AuthLoading());
+
+    try {
+      final response = await _repository.createDoctor(
+        CreateDoctorRequest(
+          firstName: firstName,
+          lastName: lastName,
+          email: email,
+          phone: phone,
+          password: password,
+          passwordConfirmation: passwordConfirmation,
+          daysOfWeek: daysOfWeek,
+          startTime: startTime,
+          endTime: endTime,
+          isActive: isActive,
+          specialtyId: specialtyId,
+        ),
+      );
+
+      emit(AuthDoctorCreated(response));
+    } on DioException catch (e) {
+      emit(AuthError(DioFailure.fromDioException(e).message));
+    } catch (_) {
+      emit(const AuthError("حدث خطأ غير متوقع"));
     }
   }
 }

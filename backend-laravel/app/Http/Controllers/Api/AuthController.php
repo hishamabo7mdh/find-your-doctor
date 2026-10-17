@@ -7,8 +7,10 @@ use App\Http\Requests\CreateDoctorRequest;
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RegisterRequest;
 use App\Http\Resources\UserResource;
+use App\Models\AuditLog;
 use App\Models\Doctor;
 use App\Models\Patient;
+use App\Models\Schedule;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -49,24 +51,39 @@ class AuthController extends Controller
         DB::beginTransaction();
 
         try {
-
             $user = $this->createUser($request, 'doctor');
 
-            Doctor::create([
+            $doctor = Doctor::create([
                 'user_id' => $user->id,
-                'day_of_week' => $request->day_of_week,
-                'start_time' => $request->start_time,
-                'end_time' => $request->end_time,
+                'specialty_id' => $request->specialty_id,
+                'bio' => $request->bio,
+                'price' => $request->price,
                 'is_active' => $request->is_active ?? true,
             ]);
 
-            $token = $user->createToken('mobile')->plainTextToken;
+            foreach ($request->days_of_week as $day) {
+                Schedule::create([
+                    'doctor_id' => $doctor->id,
+                    'day_of_week' => $day,
+                    'start_time' => $request->start_time,
+                    'end_time' => $request->end_time,
+                    'duration_minutes' => $request->duration_minutes ?? 30,
+                    'is_active' => $request->is_active ?? true,
+                ]);
+            }
+
+            AuditLog::create([
+                'actor_user_id' => $request->user()->id,
+                'action' => 'doctor.created',
+                'entity_type' => Doctor::class,
+                'entity_id' => $doctor->id,
+                'metadata' => ['specialty_id' => $doctor->specialty_id],
+            ]);
 
             DB::commit();
 
             return response()->json([
                 'user' => new UserResource($user),
-                'token' => $token,
             ], 201);
         } catch (\Throwable $e) {
 

@@ -27,9 +27,6 @@ class ApiClient {
           if (token != null) {
             options.headers["Authorization"] = "Bearer $token";
           }
-          print("Base URL: ${options.baseUrl}");
-          print("Path: ${options.path}");
-          print("Final URL: ${options.uri}");
           handler.next(options);
         },
       ),

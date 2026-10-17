@@ -1,9 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
-import 'package:project1/core/routing/app_router.dart';
-import 'package:project1/features/auth/presentation/view_model/auth_view_model.dart';
-import 'package:project1/core/routing/app_router.dart';
 import 'package:project1/features/home/patientHome/presentation/view_model/home_cubit/home_cubit.dart';
 import 'package:project1/features/home/patientHome/presentation/widgets/home_body.dart';
 

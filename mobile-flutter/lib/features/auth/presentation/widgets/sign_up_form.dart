@@ -3,9 +3,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:project1/core/routing/app_router.dart';
 import 'package:project1/core/utils/app_strings.dart';
-import 'package:project1/core/utils/app_text_styles.dart';
+import 'package:project1/features/auth/presentation/view/signup/common_auth_fields.dart';
 import 'package:project1/features/auth/presentation/widgets/sign_in_card/sign_in_form/auth_button.dart';
-import 'package:project1/features/auth/presentation/widgets/sign_in_card/sign_in_form/auth_text_field.dart';
 import 'package:project1/features/auth/presentation/widgets/sign_in_card/sign_in_form/create_account_section.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:project1/features/auth/presentation/view_model/auth_cubit.dart';
@@ -20,6 +19,7 @@ class SignUpForm extends StatefulWidget {
 
 class _SignUpFormState extends State<SignUpForm> {
   bool obscurePassword = true;
+  bool obscureConfirmPassword = true;
 
   final firstNameController = TextEditingController();
   final lastNameController = TextEditingController();
@@ -43,52 +43,17 @@ class _SignUpFormState extends State<SignUpForm> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.end,
       children: [
-        _firstFieldSection(
-          AppStrings.firstNameAr,
-          AppStrings.firstNameHintAr,
-          Icons.person_outline,
-          controller: firstNameController,
-        ),
-        SizedBox(height: 11.h),
-
-        _firstFieldSection(
-          AppStrings.lastNameAr,
-          AppStrings.lastNameHintAr,
-          Icons.person_outline,
-          controller: lastNameController,
-        ),
-        SizedBox(height: 11.h),
-        _firstFieldSection(
-          AppStrings.emailAr,
-          AppStrings.emailHint,
-          Icons.email_outlined,
-          controller: emailController,
-        ),
-        SizedBox(height: 11.h),
-        _firstFieldSection(
-          AppStrings.phoneNumberAr,
-          AppStrings.phoneHint,
-          Icons.phone,
-          controller: phoneController,
-          textIType: TextInputType.phone,
-        ),
-        SizedBox(height: 11.h),
-        _firstFieldSection(
-          AppStrings.passwordAr,
-          AppStrings.passwordHintAr,
-          Icons.lock_clock_outlined,
-          controller: passwordController,
-          suffixIcon: _passwordIcon(),
-          condpass: true,
-        ),
-        SizedBox(height: 11.h),
-        _firstFieldSection(
-          AppStrings.confirmPasswordAr,
-          AppStrings.confirmPasswordHintAr,
-          Icons.lock_clock_outlined,
-          controller: confirmPasswordController,
-          suffixIcon: _passwordIcon(),
-          condpass: true,
+        CommonAuthFields(
+          firstNameController: firstNameController,
+          lastNameController: lastNameController,
+          emailController: emailController,
+          phoneController: phoneController,
+          passwordController: passwordController,
+          confirmPasswordController: confirmPasswordController,
+          obscurePassword: obscurePassword,
+          obscureConfirmPassword: obscureConfirmPassword,
+          onTogglePassword: _togglePassword,
+          onToggleConfirmPassword: _toggleConfirmPassword,
         ),
         SizedBox(height: 11.h),
         BlocConsumer<AuthCubit, AuthState>(
@@ -111,7 +76,6 @@ class _SignUpFormState extends State<SignUpForm> {
             return AuthButton(
               text: AppStrings.signUpAr,
               onPressed: () {
-
                 context.read<AuthCubit>().register(
                   firstName: firstNameController.text.trim(),
                   lastName: lastNameController.text.trim(),
@@ -130,48 +94,22 @@ class _SignUpFormState extends State<SignUpForm> {
           AUSure: AppStrings.haveAccountAr,
           onTap: () {
             context.go(AppRouter.signIn);
+            // context.go(AppRouter.registerDoctor);
           },
         ),
       ],
     );
   }
 
-  Widget _firstFieldSection(
-    String title,
-    String hint,
-    IconData icon, {
-    required TextEditingController controller,
-    TextInputType textIType = TextInputType.emailAddress,
-    Widget? suffixIcon,
-    bool condpass = false,
-  }) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.end,
-      children: [
-        Text(title, style: CustomTextStyles.poppinsBoldBlack14),
-        SizedBox(height: 10.h),
-        AuthTextField(
-          controller: controller,
-          hintText: hint,
-          keyboardType: textIType,
-          obscureText: condpass ? obscurePassword : condpass,
-          prefixIcon: Icon(icon),
-          suffixIcon: suffixIcon,
-        ),
-      ],
-    );
-  }
-
-  Widget _passwordIcon() {
-    return IconButton(
-      onPressed: _togglePassword,
-      icon: Icon(obscurePassword ? Icons.visibility : Icons.visibility_off),
-    );
-  }
-
   void _togglePassword() {
     setState(() {
       obscurePassword = !obscurePassword;
+    });
+  }
+
+  void _toggleConfirmPassword() {
+    setState(() {
+      obscureConfirmPassword = !obscureConfirmPassword;
     });
   }
 }

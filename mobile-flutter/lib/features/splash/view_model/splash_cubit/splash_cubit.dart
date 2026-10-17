@@ -17,7 +17,7 @@ class SplashCubit extends Cubit<SplashState> {
   ),
 );
   
-  SplashCubit() : super(SplashInitial()) {}
+  SplashCubit() : super(SplashInitial());
 
   Future<void> startSplash() async {
     await Future.delayed(

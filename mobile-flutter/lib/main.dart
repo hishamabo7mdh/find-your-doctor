@@ -31,6 +31,8 @@ class Project1App extends StatelessWidget {
           child: MaterialApp.router(
             routerConfig: routerList,
             debugShowCheckedModeBanner: false,
+            builder: (context, child) =>
+                Directionality(textDirection: TextDirection.rtl, child: child!),
           ),
         );
       },

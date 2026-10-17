@@ -1,11 +1,20 @@
-1. Start the Laravel server:
+# Find Your Doctor
 
-   php artisan serve --host=0.0.0.0 --port=8000
+## Laravel API
 
-2. Before running Flutter, connect your device and make sure it is detected.
+1. Configure the database and mail connection in `backend-laravel/.env`.
+2. Run `php artisan migrate --seed` from `backend-laravel`.
+3. Start the API with `php artisan serve --host=0.0.0.0 --port=8000`.
+4. Run `php artisan queue:work` to process appointment email notifications when
+   the queue connection is asynchronous.
 
-3. Update the BaseURL in:
-   
-   Core/constants.dart
+## Flutter app
 
-   Replace it with your computer's IP address (do not use localhost).
+1. Set `ApiConstants.baseUrl` in `mobile-flutter/lib/core/constants/api_constants.dart`.
+   Use `http://10.0.2.2:8000/api` for the Android emulator, or the computer's LAN
+   IP address for a physical device.
+2. Run `flutter pub get` and `flutter run` from `mobile-flutter`.
+
+The patient flow includes doctor search, available appointment times, booking,
+and appointment cancellation. Laravel protects appointments and patient data
+with Sanctum authentication and role/ownership checks.

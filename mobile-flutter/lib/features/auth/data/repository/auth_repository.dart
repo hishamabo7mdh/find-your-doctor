@@ -1,4 +1,5 @@
 import 'package:project1/features/auth/data/models/RegisterRequest.dart';
+import 'package:project1/features/auth/data/models/create_doctor_request.dart';
 import 'package:project1/features/auth/data/models/login_request.dart';
 import 'package:project1/features/auth/data/models/login_response.dart';
 import 'package:project1/features/auth/data/models/user_model.dart';
@@ -13,7 +14,6 @@ class AuthRepository {
 
   Future<LoginResponse> login(LoginRequest request) async {
     final response = await service.login(request);
-    print("Token from API: ${response.token}");
 
     await SecureStorage.saveToken(response.token);
     return response;
@@ -38,5 +38,9 @@ class AuthRepository {
     await SecureStorage.saveToken(response.token);
 
     return response;
+  }
+
+  Future<UserModel> createDoctor(CreateDoctorRequest request) async {
+    return await service.createDoctor(request);
   }
 }

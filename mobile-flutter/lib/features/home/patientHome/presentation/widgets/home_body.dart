@@ -1,22 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
+import 'package:project1/core/routing/app_router.dart';
 import 'package:project1/core/utils/app_colors.dart';
 import 'package:project1/core/utils/function/homeIndicator.dart';
 import 'package:project1/core/utils/function/user_session.dart';
-import 'package:project1/features/auth/data/models/user_model.dart';
-import 'package:project1/features/auth/presentation/view_model/auth_cubit.dart';
-import 'package:project1/features/auth/presentation/view_model/auth_state.dart';
-import 'package:project1/features/auth/presentation/view_model/auth_view_model.dart';
 import 'package:project1/features/home/patientHome/presentation/widgets/home_action_card.dart';
 import 'package:project1/features/home/patientHome/presentation/widgets/home_button_bar.dart';
 import 'package:project1/features/home/patientHome/presentation/widgets/upcoming_appointments_section.dart';
 
-import 'appointment_card.dart';
-import 'custom_bottom_navigation.dart';
-import 'doctor_card.dart';
 import 'home_header.dart';
-import 'search_card.dart';
 
 class HomeBody extends StatelessWidget {
   const HomeBody({super.key});
@@ -31,14 +24,14 @@ class HomeBody extends StatelessWidget {
             padding: EdgeInsets.symmetric(horizontal: 24.w),
             child: Column(
               children: [
-                HomeHeader(userName: UserSession.currentUser?.fullName ?? '',),
+                HomeHeader(userName: UserSession.currentUser?.fullName ?? ''),
 
                 SizedBox(height: 32.h),
                 HomeActionCard(
                   title: 'ابحث عن دكتور',
                   subTitle: 'Find Doctor',
                   icon: Icons.search,
-                  onTap: () {},
+                  onTap: () => context.push(AppRouter.doctorSearch),
                 ),
 
                 SizedBox(height: 20.h),
@@ -47,7 +40,7 @@ class HomeBody extends StatelessWidget {
                   title: 'أطبائي',
                   subTitle: 'My Doctors',
                   icon: Icons.medical_services_outlined,
-                  onTap: () {},
+                  onTap: () => context.push(AppRouter.doctorSearch),
                 ),
 
                 // SizedBox(height: 20.h),
@@ -60,7 +53,7 @@ class HomeBody extends StatelessWidget {
                   subTitle: 'لديك موعد جديد',
                   date: 'غداً - 10:00 صباحاً',
                   buttonText: 'عرض التفاصيل',
-                  onTap: () {},
+                  onTap: () => context.push(AppRouter.appointments),
                 ),
                 SizedBox(height: 20.h),
                 homeIndicator(),
@@ -68,14 +61,19 @@ class HomeBody extends StatelessWidget {
             ),
           ),
         ),
-        
       ),
-        bottomNavigationBar: HomeBottomBar(
-    currentIndex: 0,
-    onTap: (index) {
-      // التنقل بين الصفحات
-    },
-  ),
+      bottomNavigationBar: HomeBottomBar(
+        currentIndex: 0,
+        onTap: (index) {
+          if (index == 1) {
+            context.push(AppRouter.appointments);
+          } else if (index == 2) {
+            context.push(AppRouter.doctorSearch);
+          } else if (index == 3) {
+            context.push(AppRouter.profile);
+          }
+        },
+      ),
     );
   }
 }

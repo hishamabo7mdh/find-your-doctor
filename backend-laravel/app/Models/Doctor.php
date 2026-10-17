@@ -8,11 +8,20 @@ class Doctor extends Model
 {
     protected $fillable = [
         'user_id',
-        'day_of_week',
-        'start_time',
-        'end_time',
+        'specialty_id',
+        'bio',
+        'price',
         'is_active',
     ];
+
+    protected function casts(): array
+    {
+        return [
+            'price' => 'decimal:2',
+            'is_active' => 'boolean',
+        ];
+    }
+
     public function schedules()
     {
         return $this->hasMany(Schedule::class);
@@ -26,6 +35,12 @@ class Doctor extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function specialty()
+    {
+        return $this->belongsTo(Specialty::class);
+    }
+
     public function leaves()
     {
         return $this->hasMany(DoctorLeave::class);

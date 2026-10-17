@@ -26,6 +26,12 @@ class AuthUnauthenticated extends AuthState {
   const AuthUnauthenticated();
 }
 
+class AuthDoctorCreated extends AuthState {
+  final UserModel user;
+
+  const AuthDoctorCreated(this.user);
+}
+
 /// أي خطأ
 class AuthError extends AuthState {
   final String message;

@@ -26,9 +26,7 @@ class SpecialtySeeder extends Seeder
             'أسنان',
         ];
         foreach ($specialties as $specialty) {
-            Specialty::create([
-                'name' => $specialty,
-            ]);
+            Specialty::firstOrCreate(['name' => $specialty]);
         }
     }
 }

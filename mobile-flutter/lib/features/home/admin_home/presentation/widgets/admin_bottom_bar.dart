@@ -26,9 +26,19 @@ class AdminBottomBar extends StatelessWidget {
         title: 'الأطباء',
       ),
       const _AdminNavItem(
+        icon: Icons.view_week_outlined,
+        activeIcon: Icons.view_week,
+        title: 'الجدول',
+      ),
+      const _AdminNavItem(
         icon: Icons.calendar_month_outlined,
         activeIcon: Icons.calendar_month,
         title: 'المواعيد',
+      ),
+      const _AdminNavItem(
+        icon: Icons.groups_outlined,
+        activeIcon: Icons.groups,
+        title: 'المرضى',
       ),
       const _AdminNavItem(
         icon: Icons.settings_outlined,
@@ -38,30 +48,22 @@ class AdminBottomBar extends StatelessWidget {
     ];
 
     return Container(
-      height: 76.h,
-      padding: EdgeInsets.symmetric(
-        horizontal: 12.w,
-        vertical: 8.h,
-      ),
-      decoration: BoxDecoration(
-        color: AppColors.backgroundColor,
-      ),
+      height: 72.h,
+      padding: EdgeInsets.symmetric(horizontal: 4.w, vertical: 6.h),
+      decoration: BoxDecoration(color: AppColors.backgroundColor),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: List.generate(
-          items.length,
-          (index) {
-            final item = items[index];
-            final isSelected = currentIndex == index;
+        children: List.generate(items.length, (index) {
+          final item = items[index];
+          final isSelected = currentIndex == index;
 
-            return GestureDetector(
+          return Expanded(
+            child: GestureDetector(
               onTap: () => onTap(index),
               child: AnimatedContainer(
                 duration: const Duration(milliseconds: 200),
-                width: isSelected ? 65.w : 55.w,
-                padding: EdgeInsets.symmetric(
-                  vertical: 7.h,
-                ),
+                margin: EdgeInsets.symmetric(horizontal: 2.w),
+                padding: EdgeInsets.symmetric(vertical: 6.h),
                 decoration: BoxDecoration(
                   color: isSelected
                       ? AppColors.primaryColor
@@ -72,22 +74,18 @@ class AdminBottomBar extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Icon(
-                      isSelected
-                          ? item.activeIcon
-                          : item.icon,
-                      size: 20.sp,
-                      color: isSelected
-                          ? Colors.white
-                          : Colors.grey,
+                      isSelected ? item.activeIcon : item.icon,
+                      size: 18.sp,
+                      color: isSelected ? Colors.white : Colors.grey,
                     ),
                     SizedBox(height: 3.h),
                     Text(
                       item.title,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
                       style: TextStyle(
-                        fontSize: 9.sp,
-                        color: isSelected
-                            ? Colors.white
-                            : Colors.grey,
+                        fontSize: 8.sp,
+                        color: isSelected ? Colors.white : Colors.grey,
                         fontWeight: isSelected
                             ? FontWeight.bold
                             : FontWeight.normal,
@@ -96,9 +94,9 @@ class AdminBottomBar extends StatelessWidget {
                   ],
                 ),
               ),
-            );
-          },
-        ),
+            ),
+          );
+        }),
       ),
     );
   }

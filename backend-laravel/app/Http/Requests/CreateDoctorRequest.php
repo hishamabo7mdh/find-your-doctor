@@ -28,6 +28,20 @@ class CreateDoctorRequest extends FormRequest
             'email'      => ['required', 'email', 'unique:users,email'],
             'phone'      => ['required', 'unique:users,phone'],
             'password'   => ['required', 'confirmed', 'min:8'],
+            'specialty_id' => ['required', 'integer', 'exists:specialties,id'],
+            'bio' => ['nullable', 'string', 'max:5000'],
+            'price' => ['nullable', 'numeric', 'min:0', 'max:99999999.99'],
+            'days_of_week' => ['required', 'array', 'min:1'],
+            'days_of_week.*' => [
+                'required',
+                'string',
+                'distinct',
+                'in:saturday,sunday,monday,tuesday,wednesday,thursday,friday',
+            ],
+            'start_time' => ['required', 'date_format:H:i'],
+            'end_time' => ['required', 'date_format:H:i', 'after:start_time'],
+            'duration_minutes' => ['nullable', 'integer', 'min:5', 'max:240'],
+            'is_active' => ['boolean'],
         ];
     }
 }

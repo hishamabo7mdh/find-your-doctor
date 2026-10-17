@@ -6,7 +6,7 @@ class ApiConstants {
 
   /// Real Device
   //static const String baseUrl = "169.254.219.105:8000";
-  static const String baseUrl = "http://192.168.1.103:8000/api";
+  static const String baseUrl = "http://192.168.1.104:8000/api";
 
   static const Duration connectTimeout = Duration(seconds: 30);
   static const Duration receiveTimeout = Duration(seconds: 30);
@@ -15,4 +15,7 @@ class ApiConstants {
   static const String register = "/auth/register";
   static const String logout = "/auth/logout";
   static const String me = "/auth/me";
+  static const String createDoctor = '/auth/admin/doctors';
+  static const String doctors = '/doctors';
+  static const String appointments = '/appointments';
 }
