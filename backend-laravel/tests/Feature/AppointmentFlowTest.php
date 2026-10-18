@@ -141,6 +141,50 @@ class AppointmentFlowTest extends TestCase
             ->assertJsonCount(0, 'data');
     }
 
+    public function test_specialty_and_doctor_search_return_the_specialty_image_path(): void
+    {
+        $specialty = Specialty::create([
+            'name' => 'القلبية',
+            'image_path' => 'assets/images/cardiology.png',
+        ]);
+        $doctorUser = User::factory()->create(['role' => 'doctor']);
+        $doctor = Doctor::create([
+            'user_id' => $doctorUser->id,
+            'specialty_id' => $specialty->id,
+        ]);
+
+        $this->getJson('/api/specialties')
+            ->assertOk()
+            ->assertJsonPath('data.0.image_path', 'assets/images/cardiology.png');
+
+        $this->getJson('/api/doctors?specialty_id='.$specialty->id)
+            ->assertOk()
+            ->assertJsonPath('data.0.id', $doctor->id)
+            ->assertJsonPath(
+                'data.0.specialty_image_path',
+                'assets/images/cardiology.png',
+            );
+    }
+
+    public function test_seeded_specialties_have_an_image_for_each_specialty(): void
+    {
+        $this->seed(\Database\Seeders\SpecialtySeeder::class);
+
+        $this->getJson('/api/specialties')
+            ->assertOk()
+            ->assertJsonCount(11, 'data')
+            ->assertJsonStructure([
+                'data' => [
+                    '*' => ['id', 'name', 'description', 'image_path'],
+                ],
+            ]);
+
+        $this->assertSame(
+            0,
+            Specialty::query()->whereNull('image_path')->count(),
+        );
+    }
+
     public function test_patient_cannot_access_admin_reports(): void
     {
         $patient = User::factory()->create(['role' => 'patient']);

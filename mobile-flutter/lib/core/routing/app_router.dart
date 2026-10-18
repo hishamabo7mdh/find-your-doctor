@@ -11,7 +11,9 @@ abstract class AppRouter {
   static const adminPatients = '/admin/patients';
   static const adminSettings = '/admin/settings';
   static const registerDoctor = '/registerDoctor';
-  static const doctorSearch = '/doctors';
+  static const chooseSpecialty = '/choose-specialty';
+  static const doctors = '/doctors';
+  static const doctorSearch = doctors;
   static const doctorDetails = '/doctors/:doctorId';
   static const appointments = '/appointments';
   static const profile = '/profile';

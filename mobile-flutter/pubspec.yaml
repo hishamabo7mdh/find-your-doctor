@@ -87,5 +87,7 @@ flutter:
     - family: Pacifico
       fonts:
         - asset: assets/fonts/Pacifico-Regular.ttf
-flutter_gen:
-  output: lib/core/utils/generated/
+flutter_assets:
+  assets_path: assets/images
+  output_path: lib/core/utils/
+  filename: app_assets.dart

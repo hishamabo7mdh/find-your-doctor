@@ -3,6 +3,8 @@ import 'package:project1/core/routing/app_router.dart';
 import 'package:project1/features/auth/presentation/view/profile_view.dart';
 import 'package:project1/features/auth/presentation/view/signIn/Sign_in_view.dart';
 import 'package:project1/features/auth/presentation/view/signup/sign_up_view.dart';
+import 'package:project1/features/choose_specialty/presentation/views/choose_specialty_view.dart';
+import 'package:project1/features/choose_specialty/presentation/views/doctors_view.dart';
 import 'package:project1/features/home/admin_home/presentation/views/adminHome.dart';
 import 'package:project1/features/home/admin_home/presentation/views/admin_appointments_view.dart';
 import 'package:project1/features/home/admin_home/presentation/views/admin_doctors_view.dart';
@@ -13,7 +15,6 @@ import 'package:project1/features/home/admin_home/presentation/views/body_doctor
 import 'package:project1/features/home/doctorHome.dart';
 import 'package:project1/features/home/patientHome/presentation/view/patientHome.dart';
 import 'package:project1/features/home/patientHome/presentation/view/doctor_details_view.dart';
-import 'package:project1/features/home/patientHome/presentation/view/doctor_search_view.dart';
 import 'package:project1/features/home/patientHome/presentation/view/my_appointments_view.dart';
 import 'package:project1/features/splash/view/splash_view.dart';
 
@@ -59,8 +60,17 @@ final GoRouter routerList = GoRouter(
       builder: (context, state) => BodyDoctorForm(),
     ),
     GoRoute(
-      path: AppRouter.doctorSearch,
-      builder: (context, state) => const DoctorSearchView(),
+      path: AppRouter.chooseSpecialty,
+      builder: (context, state) => const ChooseSpecialtyView(),
+    ),
+    GoRoute(
+      path: AppRouter.doctors,
+      builder: (context, state) => DoctorsView(
+        specialtyId: int.tryParse(
+          state.uri.queryParameters['specialty_id'] ?? '',
+        ),
+        specialtyName: state.uri.queryParameters['specialty_name'],
+      ),
     ),
     GoRoute(
       path: AppRouter.doctorDetails,

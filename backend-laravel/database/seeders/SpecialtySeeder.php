@@ -3,7 +3,6 @@
 namespace Database\Seeders;
 
 use App\Models\Specialty;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class SpecialtySeeder extends Seeder
@@ -14,19 +13,24 @@ class SpecialtySeeder extends Seeder
     public function run(): void
     {
         $specialties = [
-            'قلب',
-            'صدرية',
-            'دم',
-            'أطفال',
-            'جلدية',
-            'عظمية',
-            'نسائية',
-            'أذن وأنف وحنجرة',
-            'عيون',
-            'أسنان',
+            'قلب' => 'assets/images/cardiology.png',
+            'صدرية' => 'assets/images/respiratory.svg',
+            'دم' => 'assets/images/blood.svg',
+            'أطفال' => 'assets/images/pediatrics.png',
+            'جلدية' => 'assets/images/dermatologist.png',
+            'عظمية' => 'assets/images/orthopedics.svg',
+            'نسائية' => 'assets/images/gynecology.svg',
+            'أذن وأنف وحنجرة' => 'assets/images/ent.svg',
+            'عيون' => 'assets/images/ophthalmology.png',
+            'أسنان' => 'assets/images/Dentistry.png',
+            'طب نفسي' => 'assets/images/psychiatry.png',
         ];
-        foreach ($specialties as $specialty) {
-            Specialty::firstOrCreate(['name' => $specialty]);
+
+        foreach ($specialties as $name => $imagePath) {
+            Specialty::updateOrCreate(
+                ['name' => $name],
+                ['image_path' => $imagePath],
+            );
         }
     }
 }

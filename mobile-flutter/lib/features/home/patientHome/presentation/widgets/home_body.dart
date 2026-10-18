@@ -31,7 +31,7 @@ class HomeBody extends StatelessWidget {
                   title: 'ابحث عن دكتور',
                   subTitle: 'Find Doctor',
                   icon: Icons.search,
-                  onTap: () => context.push(AppRouter.doctorSearch),
+                  onTap: () => context.push(AppRouter.chooseSpecialty),
                 ),
 
                 SizedBox(height: 20.h),
@@ -40,7 +40,7 @@ class HomeBody extends StatelessWidget {
                   title: 'أطبائي',
                   subTitle: 'My Doctors',
                   icon: Icons.medical_services_outlined,
-                  onTap: () => context.push(AppRouter.doctorSearch),
+                  onTap: () => context.push(AppRouter.chooseSpecialty),
                 ),
 
                 // SizedBox(height: 20.h),
@@ -68,7 +68,7 @@ class HomeBody extends StatelessWidget {
           if (index == 1) {
             context.push(AppRouter.appointments);
           } else if (index == 2) {
-            context.push(AppRouter.doctorSearch);
+            context.push(AppRouter.chooseSpecialty);
           } else if (index == 3) {
             context.push(AppRouter.profile);
           }

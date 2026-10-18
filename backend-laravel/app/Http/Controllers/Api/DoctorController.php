@@ -17,7 +17,7 @@ class DoctorController extends Controller
             'data' => Specialty::query()
                 ->where('is_active', true)
                 ->orderBy('name')
-                ->get(['id', 'name', 'description']),
+                ->get(['id', 'name', 'description', 'image_path']),
         ]);
     }
 
@@ -153,6 +153,7 @@ class DoctorController extends Controller
             'name' => trim(($doctor->user?->first_name ?? '').' '.($doctor->user?->last_name ?? '')),
             'specialty' => $doctor->specialty?->name,
             'specialty_id' => $doctor->specialty_id,
+            'specialty_image_path' => $doctor->specialty?->image_path,
             'price' => $doctor->price,
         ];
     }

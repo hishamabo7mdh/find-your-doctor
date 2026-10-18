@@ -12,6 +12,7 @@ class Specialty extends Model
     protected $fillable = [
         'name',
         'description',
+        'image_path',
         'is_active',
     ];
 
